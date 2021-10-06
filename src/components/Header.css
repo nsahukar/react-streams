@@ -1,0 +1,32 @@
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 4rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	background-color: blueviolet;
+	padding: 0 1rem;
+}
+
+.header a {
+	text-decoration: none;
+	color: #111;
+}
+
+.header .brand {
+	font-family: 'Paytone One', sans-serif;
+	font-size: 1.6rem;
+	color: #333;
+}
+
+.header .nav-items {
+	display: flex;
+	gap: 3rem;
+	list-style: none;
+	margin-right: 1rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+}
