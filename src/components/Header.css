@@ -3,10 +3,11 @@
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 4rem;
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
+	height: 5rem;
+	display: grid;
+	grid-template-columns: fit-content(100%) 1fr fit-content(100%);
+	align-items: center;
+	gap: 2rem;
 	background-color: blueviolet;
 	padding: 0 1rem;
 }
@@ -23,10 +24,15 @@
 }
 
 .header .nav-items {
+	justify-self: end;
 	display: flex;
-	gap: 3rem;
+	align-items: center;
+	gap: 2rem;
 	list-style: none;
-	margin-right: 1rem;
+	padding-top: 0.8rem;
+}
+
+.header .nav-items .nav-item {
 	font-size: 1.2rem;
 	font-weight: 700;
 }
