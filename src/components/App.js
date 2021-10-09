@@ -46,7 +46,6 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-	console.dir(state);
 	return {
 		auth: state.auth,
 	};
