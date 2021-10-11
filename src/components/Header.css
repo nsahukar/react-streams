@@ -8,19 +8,20 @@
 	grid-template-columns: fit-content(100%) 1fr fit-content(100%);
 	align-items: center;
 	gap: 2rem;
-	background-color: blueviolet;
+	background-color: #9f5fdb;
 	padding: 0 1rem;
 }
 
 .header a {
 	text-decoration: none;
-	color: #111;
+	color: #542a7b;
 }
 
 .header .brand {
 	font-family: 'Paytone One', sans-serif;
 	font-size: 1.6rem;
 	color: #333;
+	border: 0;
 }
 
 .header .nav-items {
@@ -29,7 +30,7 @@
 	align-items: center;
 	gap: 2rem;
 	list-style: none;
-	padding-top: 0.8rem;
+	font-family: 'Paytone One', sans-serif;
 }
 
 .header .nav-items .nav-item {

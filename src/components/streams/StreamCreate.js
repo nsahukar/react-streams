@@ -1,5 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+
+import { createStream } from '../../actions';
 
 class StreamCreate extends React.Component {
 	renderError = ({ error, touched }) => {
@@ -20,18 +23,20 @@ class StreamCreate extends React.Component {
 		);
 	};
 
-	onFormSubmit = ({ title, description }) => {
-		console.log('title:', title);
-		console.log('description:', description);
+	onFormSubmit = (values) => {
+		this.props.createStream(values);
 	};
 
 	render() {
 		return (
-			<form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
-				<Field name="title" label="Title" component={this.renderInput} />
-				<Field name="description" label="Description" component={this.renderInput} />
-				<button>Submit</button>
-			</form>
+			<React.Fragment>
+				<h2 className="page-title">Create new stream...</h2>
+				<form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
+					<Field name="title" label="Title" component={this.renderInput} />
+					<Field name="description" label="Description" component={this.renderInput} />
+					<button>Submit</button>
+				</form>
+			</React.Fragment>
 		);
 	}
 };
@@ -50,7 +55,9 @@ const validate = ({ title, description }) => {
 	return error;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
 	form: 'streamCreate',
 	validate
 })(StreamCreate);
+
+export default connect(null, { createStream })(formWrapped);

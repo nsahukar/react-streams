@@ -1,4 +1,15 @@
-import { LOAD_GOOGLE_OAUTH, ON_AUTH_CHANGE, SIGN_IN, SIGN_OUT } from './types';
+import streams from '../apis/streams';
+import { 
+	LOAD_GOOGLE_OAUTH, 
+	ON_AUTH_CHANGE, 
+	SIGN_IN, 
+	SIGN_OUT,
+	CREATE_STREAM,
+	GET_STREAMS,
+	GET_STREAM,
+	EDIT_STREAM,
+	DELETE_STREAM
+} from './types';
 
 export const loadGoogleOAuth2 = () => dispatch => {
 	window.gapi.load('client:auth2', () => {
@@ -50,5 +61,46 @@ export const signOut = () => (dispatch, getState) => {
 		dispatch({
 			type: SIGN_OUT
 		});
+	});
+};
+
+export const createStream = stream => async (dispatch, getState) => {
+	const userId = getState().user.info.id;
+	const { data } = await streams.post('/streams', { ...stream, userId });
+	dispatch({
+		type: CREATE_STREAM,
+		payload: data
+	});
+};
+
+export const getStreams = () => async dispatch => {
+	const { data } = await streams.get('/streams');
+	dispatch({
+		type: GET_STREAMS,
+		payload: data
+	});
+};
+
+export const getStream = id => async dispatch => {
+	const { data } = await streams.get(`/streams/${id}`);
+	dispatch({
+		type: GET_STREAM,
+		payload: data
+	});
+};
+
+export const editStream = stream => async dispatch => {
+	const { data } = await streams.put(`/streams/${stream.id}`, stream);
+	dispatch({
+		type: EDIT_STREAM,
+		payload: data
+	});
+}
+
+export const deleteStream = id => async dispatch => {
+	await streams.delete(`/streams/${id}`);
+	dispatch({
+		type: DELETE_STREAM,
+		payload: id
 	});
 };
