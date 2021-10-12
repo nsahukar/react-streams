@@ -14,10 +14,13 @@
 	position: relative;
 }
 
+.stream a {
+	color: darkturquoise;
+}
+
 .stream .title {
 	font-weight: 700;
 	font-size: 1.4rem;
-	color: darkturquoise;
 	cursor: pointer;
 	text-decoration: underline solid darkturquoise 0.25rem;
 }
@@ -27,9 +30,7 @@
 	position: absolute;
 	top: 1.2rem;
 	right: 1.2rem;
-	padding: 4px;
 	background-color: #e5d5f5;
-	border-radius: 1rem;
 }
 
 .stream .title:hover>.play {
@@ -51,18 +52,11 @@
 	align-self: flex-end;
 }
 
-.stream .options .svg {
-	cursor: pointer;
-	text-align: center;
-	padding: 4px;
-}
-
-.stream .options .svg:hover {
+.action:hover {
 	background-color: #e5d5f5;
-	border-radius: 0.25rem;
 }
 
-.stream .options .svg:active {
+.action:active {
 	background-color: #e5d5f5;
 	transform: translateY(1.6px);
 }

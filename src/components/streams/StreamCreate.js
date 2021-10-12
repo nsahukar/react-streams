@@ -2,9 +2,18 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { createStream } from '../../actions';
+import { createStream, setCreateStreamStatus } from '../../actions';
 
 class StreamCreate extends React.Component {
+	componentDidUpdate = () => {
+		const api = this.props.apiCreateStream;
+		if (api) {
+			if (api.status === 'success') {
+				this.props.history.goBack();
+			}
+		}
+	};
+
 	renderError = ({ error, touched }) => {
 		if (touched && error) {
 			return (
@@ -30,7 +39,9 @@ class StreamCreate extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<h2 className="page-title">Create new stream...</h2>
+				<div className="top">
+					<h2 className="page-title">Create new stream...</h2>
+				</div>
 				<form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
 					<Field name="title" label="Title" component={this.renderInput} />
 					<Field name="description" label="Description" component={this.renderInput} />
@@ -39,6 +50,10 @@ class StreamCreate extends React.Component {
 			</React.Fragment>
 		);
 	}
+
+	componentWillUnmount = () => {
+		this.props.setCreateStreamStatus(null);
+	};
 };
 
 const validate = ({ title, description }) => {
@@ -60,4 +75,10 @@ const formWrapped = reduxForm({
 	validate
 })(StreamCreate);
 
-export default connect(null, { createStream })(formWrapped);
+const mapStateToProps = state => {
+	return {
+		apiCreateStream: state.api.createStream
+	};
+};
+
+export default connect(mapStateToProps, { createStream, setCreateStreamStatus })(formWrapped);

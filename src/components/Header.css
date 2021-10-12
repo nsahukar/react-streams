@@ -10,11 +10,11 @@
 	gap: 2rem;
 	background-color: #9f5fdb;
 	padding: 0 1rem;
+	z-index: 1;
 }
 
 .header a {
-	text-decoration: none;
-	color: #542a7b;
+	color: whitesmoke;
 }
 
 .header .brand {

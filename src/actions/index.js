@@ -8,7 +8,8 @@ import {
 	GET_STREAMS,
 	GET_STREAM,
 	EDIT_STREAM,
-	DELETE_STREAM
+	DELETE_STREAM,
+	STATUS_CREATE_STREAM
 } from './types';
 
 export const loadGoogleOAuth2 = () => dispatch => {
@@ -64,13 +65,45 @@ export const signOut = () => (dispatch, getState) => {
 	});
 };
 
+
+const logAxiosError = (error) => {
+	if (error.response) {
+		// The request was made and the server responded with a status code
+		// that falls out of the range of 2xx
+		console.log(error.response.data);
+		console.log(error.response.status);
+		console.log(error.response.headers);
+	} else if (error.request) {
+		// The request was made but no response was received
+		// `error.request` is an instance of XMLHttpRequest in the browser
+		console.log(error.reuqest);
+	} else {
+		// Something happened in setting up the request that triggered an Error
+		console.log('Error:', error.message);
+	}
+};
+
 export const createStream = stream => async (dispatch, getState) => {
-	const userId = getState().user.info.id;
-	const { data } = await streams.post('/streams', { ...stream, userId });
-	dispatch({
-		type: CREATE_STREAM,
-		payload: data
-	});
+	const userInfo = getState().user.info;
+	const userId = userInfo ? userInfo.id : 0;
+	const response = await streams.post('/streams', { ...stream, userId })
+																.catch(logAxiosError);
+	if (response) {
+		dispatch({
+			type: CREATE_STREAM,
+			payload: response.data
+		});
+		dispatch(setCreateStreamStatus({
+			status: 'success'
+		}));
+	}
+};
+
+export const setCreateStreamStatus = status => {
+	return {
+		type: STATUS_CREATE_STREAM,
+		payload: status
+	};
 };
 
 export const getStreams = () => async dispatch => {

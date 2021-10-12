@@ -10,7 +10,7 @@ const Header = () => {
 			<Link to="/" className="brand">&lt;strmy&gt;</Link>
 			<ul className="nav-items">
 				<li className="nav-item">
-					<Link to="/">Streams</Link>
+					<Link to="/"></Link>
 				</li>
 			</ul>
 			<div className="sign-in-out">

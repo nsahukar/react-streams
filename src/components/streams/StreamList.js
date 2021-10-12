@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { getStreams } from '../../actions';
+import CreateSVG from './CreateSVG';
 import VideoSVG from './VideoSVG';
 import PlaySVG from './PlaySVG';
 import EditSVG from './EditSVG';
@@ -13,18 +15,32 @@ class StreamList extends React.Component {
 		this.props.getStreams();
 	};
 
+	renderCreateStreamAction = () => {
+		if (this.props.isSignedIn) {
+			return (
+				<Link to="/streams/new">
+					<CreateSVG />
+				</Link>
+			);
+		}
+	};
+
 	trimDescription = (desc, length) => {
 		return desc.length > length ?
 			desc.substring(0, length - 3) + '...' :
 			desc;
 	};
 
-	showCurrentUserStreamsOptions = userId => {
-		if (userId === this.props.currentUserId) {
+	renderUserStreamActions = stream => {
+		if (stream.userId === this.props.currentUserId) {
 			return (
 				<React.Fragment>
-					<EditSVG />
-					<DeleteSVG />
+					<Link to={`/streams/edit/${stream.id}`}>
+						<EditSVG />
+					</Link>
+					<Link to={`/streams/delete/${stream.id}`}>
+						<DeleteSVG />
+					</Link>
 				</React.Fragment>
 			);
 		}
@@ -38,14 +54,16 @@ class StreamList extends React.Component {
 						<VideoSVG />
 					</div>
 					<div className="title">
-						{stream.title}
+						<Link to={`/streams/show/${stream.id}`}>
+							{stream.title}
+						</Link>
 						<PlaySVG />
 					</div>
 					<div className="description">
 						{stream.description}
 					</div>
 					<div className="options">
-						{this.showCurrentUserStreamsOptions(stream.userId)}
+						{this.renderUserStreamActions(stream)}
 					</div>
 				</div>
 			);
@@ -55,7 +73,10 @@ class StreamList extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<h2 className="page-title">Streams...</h2>
+				<div className="top">
+					<h2 className="page-title">Streams...</h2>
+					{this.renderCreateStreamAction()}
+				</div>
 				<div className="streams">
 					{this.renderList()}
 				</div>
@@ -66,8 +87,9 @@ class StreamList extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		streams: Object.values(state.streams),
-		currentUserId: state.user.info.id
+		isSignedIn: state.user.isSignedIn,
+		currentUserId: state.user.info ? state.user.info.id : 0,
+		streams: Object.values(state.streams)
 	};
 };
 

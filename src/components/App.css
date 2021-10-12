@@ -1,6 +1,17 @@
+a {
+	text-decoration: none;
+}
+
 .app {
 	margin-top: 6rem;
 	padding: 1rem;
+}
+
+.top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 3rem;
 }
 
 .page-title {
@@ -10,8 +21,7 @@
 	font-size: 2.4rem;
 	color: #333;
 	border-bottom: 0.5rem solid #9f5fdb;
-	margin-top: 0;
-	margin-bottom: 3rem;
+	margin: 0;
 }
 
 form {
