@@ -9,7 +9,8 @@ import {
 	GET_STREAM,
 	EDIT_STREAM,
 	DELETE_STREAM,
-	STATUS_CREATE_STREAM
+	STATUS_CREATE_STREAM,
+	STATUS_EDIT_STREAM
 } from './types';
 
 export const loadGoogleOAuth2 = () => dispatch => {
@@ -122,13 +123,26 @@ export const getStream = id => async dispatch => {
 	});
 };
 
-export const editStream = stream => async dispatch => {
-	const { data } = await streams.put(`/streams/${stream.id}`, stream);
-	dispatch({
-		type: EDIT_STREAM,
-		payload: data
-	});
-}
+export const editStream = (id, values) => async dispatch => {
+	const response = await streams.patch(`/streams/${id}`, values)
+																.catch(logAxiosError);
+	if (response) {
+		dispatch({
+			type: EDIT_STREAM,
+			payload: response.data
+		});
+		dispatch(setEditStreamStatus({
+			status: 'success'
+		}));
+	}
+};
+
+export const setEditStreamStatus = status => {
+	return {
+		type: STATUS_EDIT_STREAM,
+		payload: status
+	};
+};
 
 export const deleteStream = id => async dispatch => {
 	await streams.delete(`/streams/${id}`);
