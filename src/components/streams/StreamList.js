@@ -38,7 +38,7 @@ class StreamList extends React.Component {
 					<Link to={`/streams/edit/${stream.id}`}>
 						<EditSVG />
 					</Link>
-					<Link to={`/streams/delete/${stream.id}`}>
+				<Link to={`/streams/delete/${stream.id}`}>
 						<DeleteSVG />
 					</Link>
 				</React.Fragment>
@@ -54,7 +54,7 @@ class StreamList extends React.Component {
 						<VideoSVG />
 					</div>
 					<div className="title">
-						<Link to={`/streams/show/${stream.id}`}>
+						<Link to={`/streams/${stream.id}`}>
 							{stream.title}
 						</Link>
 						<PlaySVG />
