@@ -1,0 +1,83 @@
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1024;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fade {
+	transition: opacity .16s .5s linear;
+}
+
+.fade:not(.show) {
+	opacity: 0;
+}
+
+.modal.fade .modal-dialog {
+	transition: transform .3s .5s ease-out;
+	transform: translate(0, -3rem);
+}
+
+.modal.show .modal-dialog {
+	transform: none;
+	opacity: 1;
+}
+
+.modal-dialog {
+	position:  relative;
+	margin: 8rem auto;
+	max-width: 500px;
+	width: auto;
+	pointer-events: none;
+}
+
+.modal-content {
+	position: relative;
+	width: 100%;
+	pointer-events: auto;
+	background-color: whitesmoke;
+	border-radius: 0.48rem;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+	padding: 1rem;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.modal-header h3 {
+	font-weight: 700;
+	font-size: 1.4rem;
+	color: #9f5fdb;
+	margin: 0;
+}
+
+.modal-body {
+	font-weight: 600;
+	font-size: 1rem;
+	color: #555;
+	padding-top: 1.6rem;
+	padding-bottom: 1.6rem;
+}
+
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1rem;
+}
+
+.divider {
+	width: 100%;
+	height: 2px;
+	background-color: #ddd;
+}

@@ -64,6 +64,10 @@ button {
 	background-color: #b46bfb;
 }
 
+button.secondary {
+	background-color: #ccc;
+}
+
 button:hover {
 	color: #111;
 }

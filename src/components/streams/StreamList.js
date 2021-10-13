@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { getStreams } from '../../actions';
-import CreateSVG from './CreateSVG';
-import VideoSVG from './VideoSVG';
-import PlaySVG from './PlaySVG';
-import EditSVG from './EditSVG';
-import DeleteSVG from './DeleteSVG';
+import CreateSVG from '../svg/CreateSVG';
+import VideoSVG from '../svg/VideoSVG';
+import PlaySVG from '../svg/PlaySVG';
+import EditSVG from '../svg/EditSVG';
+import DeleteSVG from '../svg/DeleteSVG';
 import './StreamList.css';
 
 class StreamList extends React.Component {

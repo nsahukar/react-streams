@@ -10,7 +10,8 @@ import {
 	EDIT_STREAM,
 	DELETE_STREAM,
 	STATUS_CREATE_STREAM,
-	STATUS_EDIT_STREAM
+	STATUS_EDIT_STREAM,
+	STATUS_DELETE_STREAM
 } from './types';
 
 export const loadGoogleOAuth2 = () => dispatch => {
@@ -145,9 +146,22 @@ export const setEditStreamStatus = status => {
 };
 
 export const deleteStream = id => async dispatch => {
-	await streams.delete(`/streams/${id}`);
-	dispatch({
-		type: DELETE_STREAM,
-		payload: id
-	});
+	const response = await streams.delete(`/streams/${id}`).catch(logAxiosError);
+
+	if (response) {
+		dispatch({
+			type: DELETE_STREAM,
+			payload: id
+		});
+		dispatch(setDeleteStreamStatus({
+			status: 'success'
+		}));
+	}
+};
+
+export const setDeleteStreamStatus = status => {
+	return {
+		type: STATUS_DELETE_STREAM,
+		payload: status
+	};
 };

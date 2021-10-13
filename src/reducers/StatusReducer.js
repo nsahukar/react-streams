@@ -1,6 +1,7 @@
 import { 
 	STATUS_CREATE_STREAM, 
-	STATUS_EDIT_STREAM 
+	STATUS_EDIT_STREAM,
+	STATUS_DELETE_STREAM
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -11,15 +12,17 @@ const INITIAL_STATE = {
 	deleteStream: null
 };
 
-const ErrorsReducer = (errors = INITIAL_STATE, action) => {
+const StatusReducer = (errors = INITIAL_STATE, action) => {
 	switch(action.type) {
 		case STATUS_CREATE_STREAM:
 			return { ...errors, createStream: action.payload };
 		case STATUS_EDIT_STREAM:
 			return { ...errors, editStream: action.payload };
+		case STATUS_DELETE_STREAM:
+			return { ...errors, deleteStream: action.payload };
 		default:
 			return errors;
 	}
 };
 
-export default ErrorsReducer;
+export default StatusReducer;
